@@ -4,6 +4,7 @@ import (
 	"boids/app/config"
 	"boids/app/scene"
 	"fmt"
+	"runtime"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -29,21 +30,28 @@ func Run() error {
 	scene := scene.NewScene()
 	defer scene.Destroy()
 
-	if err := scene.Paint(r); err != nil {
-		return fmt.Errorf("Scene can't paint: %v", err)
-	}
+	// events := make(chan sdl.Event)
+	// defer close(events)
+
+	sceneErrors := scene.Run(r)
 
 	w.Show()
 
-	// MacOs hack to pump events.
+	// MacOS hack to pump events.
 	sdl.PumpEvents()
 
+	runtime.LockOSThread()
 	for {
-		event := sdl.WaitEvent()
-
-		switch event.(type) {
+		// Global events
+		switch sdl.WaitEvent().(type) {
 		case *sdl.QuitEvent:
 			return nil
+		}
+
+		// Scene events
+		select {
+		case sceneError := <-sceneErrors:
+			return sceneError
 		default:
 		}
 	}
