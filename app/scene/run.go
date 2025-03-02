@@ -13,7 +13,7 @@ func (scene *Scene) Run(r *sdl.Renderer) <-chan error {
 	go func() {
 		defer close(errc)
 
-		tick := time.Tick(1 * time.Second)
+		tick := time.Tick(16 * time.Millisecond)
 
 		for {
 			select {

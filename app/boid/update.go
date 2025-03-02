@@ -1,10 +1,14 @@
 package boid
 
-import "math/rand"
-
 func (boid *Boid) Update() {
-	randX := rand.Int31n(800)
-	randY := rand.Int31n(600)
+	if boid.X+boid.W >= 800 || boid.X <= 0 {
+		boid.XDirection = -boid.XDirection
+	}
 
-	boid.X, boid.Y = randX, randY
+	if boid.Y+boid.H >= 600 || boid.Y <= 0 {
+		boid.YDirection = -boid.YDirection
+	}
+
+	boid.X += boid.XDirection
+	boid.Y += boid.YDirection
 }

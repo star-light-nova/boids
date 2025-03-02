@@ -2,7 +2,6 @@ package scene
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -16,8 +15,6 @@ func (scene *Scene) Paint(r *sdl.Renderer) error {
 
 	for i, boid := range scene.boids {
 		err := boid.Paint(r)
-
-		log.Printf("Painting boid: #%d: %v", i, boid)
 
 		if err != nil {
 			return fmt.Errorf("Couldn't paint boid: #%d: %v", i, boid)
