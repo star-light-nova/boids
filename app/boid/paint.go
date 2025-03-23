@@ -7,7 +7,7 @@ import (
 )
 
 func (boid *Boid) Paint(r *sdl.Renderer) error {
-	rect := &sdl.Rect{
+	rect := &sdl.FRect{
 		X: boid.X,
 		Y: boid.Y,
 		W: boid.W,
@@ -17,8 +17,8 @@ func (boid *Boid) Paint(r *sdl.Renderer) error {
 	texture, err := r.CreateTexture(
 		sdl.PIXELFORMAT_UNKNOWN,
 		sdl.TEXTUREACCESS_STATIC,
-		boid.W,
-		boid.H,
+		int32(boid.W),
+		int32(boid.H),
 	)
 
 	if err != nil {
@@ -33,11 +33,11 @@ func (boid *Boid) Paint(r *sdl.Renderer) error {
 		return fmt.Errorf("Couldn't set draw color for boid: %v", err)
 	}
 
-	if err := r.Copy(boid.Texture(), nil, rect); err != nil {
+	if err := r.CopyF(boid.Texture(), nil, rect); err != nil {
 		return fmt.Errorf("Couldn't copy boid: %v", err)
 	}
 
-	if err := r.FillRect(rect); err != nil {
+	if err := r.FillRectF(rect); err != nil {
 		return fmt.Errorf("Couldn't fill react with color: %v", err)
 	}
 

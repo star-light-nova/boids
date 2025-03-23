@@ -15,11 +15,11 @@ type Scene struct {
 func NewScene() *Scene {
 	boids := []*boid.Boid{}
 
-	for range 10 {
+	for range 100 {
 		boid := boid.NewBoid()
 
-		randX := rand.Int31n(800 - boid.W)
-		randY := rand.Int31n(600 - boid.H)
+		randX := float32(rand.Int31n(800 - int32(boid.W)))
+		randY := float32(rand.Int31n(600 - int32(boid.H)))
 
 		boid.X, boid.Y = randX, randY
 

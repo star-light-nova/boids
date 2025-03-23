@@ -9,36 +9,38 @@ import (
 type Boid struct {
 	texture *sdl.Texture
 
-	X, Y int32
-	W, H int32
+	X, Y float32
+	W, H float32
 
-	XDirection int32
-	YDirection int32
+	ProtectedRange float32
+	VisualRange    float32
+	AvoidFactor    float32
+	MatchFactor    float32
+	CenterFactor   float32
 
-	XStep int32
-	YStep int32
+	// Velocity
+	VX, VY float32
 }
 
 func NewBoid() *Boid {
-	var xdirection, ydirection int32 = 1, 1
-
-	if rand.Float32() < 0.5 {
-		xdirection = -xdirection
-	}
-
-	if rand.Float32() < 0.5 {
-		ydirection = -ydirection
-	}
+	randVX := rand.Float32() + maxspeed
+	randVY := rand.Float32() + minspeed
 
 	return &Boid{
-		W: 50,
-		H: 50,
+		W: 5,
+		H: 5,
 
-		XStep: 1,
-		YStep: 1,
+		VX: randVX,
+		VY: randVY,
 
-		XDirection: xdirection,
-		YDirection: ydirection,
+		// Ranges
+		ProtectedRange: protectedRange,
+		VisualRange:    visualRange,
+
+		// Factors
+		AvoidFactor:  AvoidFactor,
+		MatchFactor:  MatchFactor,
+		CenterFactor: CenterFactor,
 	}
 }
 
