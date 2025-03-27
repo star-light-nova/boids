@@ -26,6 +26,14 @@ func NewBoid() *Boid {
 	randVX := rand.Float32() + maxspeed
 	randVY := rand.Float32() + minspeed
 
+	if rand.Float32() > 0.5 {
+		randVX = -randVX
+	}
+
+	if rand.Float32() > 0.5 {
+		randVY = -randVY
+	}
+
 	return &Boid{
 		W: 5,
 		H: 5,
