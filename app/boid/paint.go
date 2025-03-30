@@ -2,32 +2,25 @@ package boid
 
 import (
 	"fmt"
-
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+var SimpleRect = &sdl.FRect{
+	X: 0,
+	Y: 0,
+	W: 0,
+	H: 0,
+}
+
 func (boid *Boid) Paint(r *sdl.Renderer) error {
-	rect := &sdl.FRect{
-		X: boid.X,
-		Y: boid.Y,
-		W: boid.W,
-		H: boid.H,
-	}
+	SimpleRect.X = boid.X
+	SimpleRect.Y = boid.Y
+	SimpleRect.W = boid.W
+	SimpleRect.H = boid.H
 
-	texture, err := r.CreateTexture(
-		sdl.PIXELFORMAT_UNKNOWN,
-		sdl.TEXTUREACCESS_STATIC,
-		int32(boid.W),
-		int32(boid.H),
-	)
+	rect := SimpleRect
 
-	if err != nil {
-		return fmt.Errorf("Couldn't create texture for boid: %v", err)
-	}
-
-	boid.texture = texture
-
-	err = r.SetDrawColor(255, 255, 255, 126)
+	err := r.SetDrawColor(255, 255, 255, 126)
 
 	if err != nil {
 		return fmt.Errorf("Couldn't set draw color for boid: %v", err)

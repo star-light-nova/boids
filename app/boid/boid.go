@@ -22,7 +22,19 @@ type Boid struct {
 	VX, VY float32
 }
 
-func NewBoid() *Boid {
+func NewBoid(r *sdl.Renderer) *Boid {
+	texture, err := r.CreateTexture(
+		sdl.PIXELFORMAT_UNKNOWN,
+		sdl.TEXTUREACCESS_STATIC,
+		5,
+		5,
+	)
+
+	if err != nil {
+		// TODO: Return err with Boid.
+		panic("Couldn't create a texture for boid")
+	}
+
 	randVX := rand.Float32() + maxspeed
 	randVY := rand.Float32() + minspeed
 
@@ -35,6 +47,8 @@ func NewBoid() *Boid {
 	}
 
 	return &Boid{
+		texture: texture,
+
 		W: 5,
 		H: 5,
 

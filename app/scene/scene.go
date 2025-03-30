@@ -3,6 +3,8 @@ package scene
 import (
 	"boids/app/boid"
 	"math/rand"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 type Scene struct {
@@ -12,11 +14,11 @@ type Scene struct {
 	W, H int32
 }
 
-func NewScene() *Scene {
+func NewScene(r *sdl.Renderer) *Scene {
 	boids := []*boid.Boid{}
 
-	for range 100 {
-		boid := boid.NewBoid()
+	for range 2000 {
+		boid := boid.NewBoid(r)
 
 		randX := float32(rand.Int31n(800 - int32(boid.W)))
 		randY := float32(rand.Int31n(600 - int32(boid.H)))

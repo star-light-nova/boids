@@ -27,7 +27,7 @@ func Run() error {
 		return fmt.Errorf("Could not create either a window or renderer or both: %v", err)
 	}
 
-	scene := scene.NewScene()
+	scene := scene.NewScene(r)
 	defer scene.Destroy()
 
 	// events := make(chan sdl.Event)
