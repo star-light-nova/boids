@@ -27,11 +27,13 @@ func Run() error {
 		return fmt.Errorf("Could not create either a window or renderer or both: %v", err)
 	}
 
-	scene := scene.NewScene(r)
-	defer scene.Destroy()
+	scene, err := scene.NewScene(r)
 
-	// events := make(chan sdl.Event)
-	// defer close(events)
+	if err != nil {
+		return fmt.Errorf("Could not initialise a scene: %v", err)
+	}
+
+	defer scene.Destroy()
 
 	sceneErrors := scene.Run(r)
 
@@ -42,10 +44,16 @@ func Run() error {
 
 	runtime.LockOSThread()
 	for {
+		current_event := sdl.WaitEvent()
+
 		// Global events
-		switch sdl.WaitEvent().(type) {
+		switch current_event.(type) {
 		case *sdl.QuitEvent:
 			return nil
+		case *sdl.MouseMotionEvent:
+			mouse_motion_event := current_event.(*sdl.MouseMotionEvent)
+
+			go func() { scene.MouseMotionEvents <- mouse_motion_event }()
 		}
 
 		// Scene events

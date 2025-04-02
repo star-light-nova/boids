@@ -11,11 +11,14 @@ import (
 type Scene struct {
 	boids []*boid.Boid
 
+	MouseMotionEvents chan *sdl.MouseMotionEvent
+
 	X, Y int32
 	W, H int32
 }
 
-func NewScene(r *sdl.Renderer) *Scene {
+func NewScene(r *sdl.Renderer) (*Scene, error) {
+	mouse_motion_events := make(chan *sdl.MouseMotionEvent)
 	boids := []*boid.Boid{}
 
 	for range 2000 {
@@ -31,7 +34,9 @@ func NewScene(r *sdl.Renderer) *Scene {
 
 	return &Scene{
 		boids: boids,
-	}
+
+		MouseMotionEvents: mouse_motion_events,
+	}, nil
 }
 
 func (scene *Scene) Destroy() {
