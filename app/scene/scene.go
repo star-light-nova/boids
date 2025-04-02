@@ -4,6 +4,7 @@ import (
 	"boids/app/boid"
 	"math/rand"
 
+	ap "boids/app/config"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -20,8 +21,8 @@ func NewScene(r *sdl.Renderer) *Scene {
 	for range 2000 {
 		boid := boid.NewBoid(r)
 
-		randX := float32(rand.Int31n(800 - int32(boid.W)))
-		randY := float32(rand.Int31n(600 - int32(boid.H)))
+		randX := float32(rand.Int31n(ap.DEFAULT_WINDOW_WIDTH - int32(boid.W)))
+		randY := float32(rand.Int31n(ap.DEFAULT_WINDOW_HEIGHT - int32(boid.H)))
 
 		boid.X, boid.Y = randX, randY
 

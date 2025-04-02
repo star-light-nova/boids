@@ -12,4 +12,7 @@ const (
 	CenterFactor float32 = 0.0005
 
 	border int32 = 50
+
+	HEIGHT float32 = 5
+	WIDTH  float32 = 5
 )

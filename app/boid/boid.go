@@ -26,8 +26,8 @@ func NewBoid(r *sdl.Renderer) *Boid {
 	texture, err := r.CreateTexture(
 		sdl.PIXELFORMAT_UNKNOWN,
 		sdl.TEXTUREACCESS_STATIC,
-		5,
-		5,
+		int32(HEIGHT),
+		int32(WIDTH),
 	)
 
 	if err != nil {
@@ -49,8 +49,8 @@ func NewBoid(r *sdl.Renderer) *Boid {
 	return &Boid{
 		texture: texture,
 
-		W: 5,
-		H: 5,
+		W: WIDTH,
+		H: HEIGHT,
 
 		VX: randVX,
 		VY: randVY,
