@@ -12,11 +12,12 @@ type Boid struct {
 	X, Y float32
 	W, H float32
 
-	ProtectedRange float32
-	VisualRange    float32
-	AvoidFactor    float32
-	MatchFactor    float32
-	CenterFactor   float32
+	ProtectedRange   float32
+	VisualRange      float32
+	AvoidFactor      float32
+	MatchFactor      float32
+	CenterFactor     float32
+	AvoidMouseFactor float32
 
 	// Velocity
 	VX, VY float32
@@ -60,9 +61,10 @@ func NewBoid(r *sdl.Renderer) *Boid {
 		VisualRange:    visualRange,
 
 		// Factors
-		AvoidFactor:  AvoidFactor,
-		MatchFactor:  MatchFactor,
-		CenterFactor: CenterFactor,
+		AvoidFactor:      AvoidFactor,
+		AvoidMouseFactor: AvoidMouseFactor,
+		MatchFactor:      MatchFactor,
+		CenterFactor:     CenterFactor,
 	}
 }
 

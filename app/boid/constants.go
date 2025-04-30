@@ -7,9 +7,10 @@ const (
 	maxspeed       float32 = 3
 	minspeed       float32 = 2
 
-	AvoidFactor  float32 = 0.05
-	MatchFactor  float32 = 0.05
-	CenterFactor float32 = 0.0005
+	AvoidFactor      float32 = 0.05
+	MatchFactor      float32 = 0.05
+	CenterFactor     float32 = 0.0005
+	AvoidMouseFactor float32 = 0.00025
 
 	border int32 = 50
 

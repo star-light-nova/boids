@@ -41,6 +41,33 @@ func (scene *Scene) UpdateMouseMotion(mouse_motion_event *sdl.MouseMotionEvent) 
 			}
 		}
 
+		// Calculate for mouse movement
+		mouse_motion_event_X := float32(mouse_motion_event.X)
+		mouse_motion_event_Y := float32(mouse_motion_event.Y)
+
+		dx := boid.X - mouse_motion_event_X
+		dy := boid.Y - mouse_motion_event_Y
+
+		if abs(dx) < boid.VisualRange && abs(dy) < boid.VisualRange {
+			distance := dx*dx + dy*dy
+
+			// Separation
+			if distance < (boid.ProtectedRange * boid.ProtectedRange) {
+				closeDx += boid.X - mouse_motion_event_X
+				closeDy += boid.Y - mouse_motion_event_Y
+			} else if distance < (boid.VisualRange * boid.VisualRange) {
+				// Alignment
+				// Find velocity for mouse motion movement
+				xVelAvg += mouse_motion_event_X
+				yVelAvg += mouse_motion_event_Y
+				// Cohesion
+				xPosAvg += mouse_motion_event_X
+				yPosAvg += mouse_motion_event_Y
+
+				neighbors++
+			}
+		}
+
 		if neighbors > 0 {
 			xVelAvg = xVelAvg / neighbors
 			yVelAvg = yVelAvg / neighbors
@@ -48,8 +75,8 @@ func (scene *Scene) UpdateMouseMotion(mouse_motion_event *sdl.MouseMotionEvent) 
 			xPosAvg = xPosAvg / neighbors
 			yPosAvg = yPosAvg / neighbors
 
-			boid.VX = boid.VX + ((xPosAvg-boid.X)*boid.CenterFactor + (xVelAvg-boid.VX)*boid.MatchFactor)
-			boid.VY = boid.VY + ((yPosAvg-boid.Y)*boid.CenterFactor + (yVelAvg-boid.VY)*boid.MatchFactor)
+			boid.VX = boid.VX + ((xPosAvg-boid.X)*boid.CenterFactor + (xVelAvg-boid.VX)*boid.MatchFactor + (xPosAvg-mouse_motion_event_X)*boid.AvoidMouseFactor)
+			boid.VY = boid.VY + ((yPosAvg-boid.Y)*boid.CenterFactor + (yVelAvg-boid.VY)*boid.MatchFactor + (yPosAvg-mouse_motion_event_Y)*boid.AvoidMouseFactor)
 		}
 
 		boid.VX = boid.VX + (boid.AvoidFactor * closeDx)
