@@ -20,12 +20,12 @@ func (scene *Scene) Run(r *sdl.Renderer) <-chan error {
 			select {
 			case <-tick:
 				// Handle mouse motion events.
-				select {
-				case mouse_motion_event := <-scene.MouseMotionEvents:
-					scene.UpdateMouseMotion(mouse_motion_event)
-				default:
-					scene.Update()
-				}
+				// select {
+				// case mouse_motion_event := <-scene.MouseMotionEvents:
+				// 	scene.UpdateMouseMotion(mouse_motion_event)
+				// default:
+				scene.Update()
+				// }
 
 				err := scene.Paint(r)
 				if err != nil {
