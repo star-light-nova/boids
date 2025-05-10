@@ -21,6 +21,9 @@ type Boid struct {
 
 	// Velocity
 	VX, VY float32
+
+	// Color
+	Color *sdl.Color
 }
 
 func NewBoid(r *sdl.Renderer) *Boid {
@@ -65,6 +68,8 @@ func NewBoid(r *sdl.Renderer) *Boid {
 		AvoidMouseFactor: AvoidMouseFactor,
 		MatchFactor:      MatchFactor,
 		CenterFactor:     CenterFactor,
+
+		Color: DEFAULT_COLOR,
 	}
 }
 

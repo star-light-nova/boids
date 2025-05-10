@@ -20,7 +20,7 @@ func (boid *Boid) Paint(r *sdl.Renderer) error {
 
 	rect := SimpleRect
 
-	err := r.SetDrawColor(255, 255, 255, 126)
+	err := r.SetDrawColor(boid.Color.R, boid.Color.G, boid.Color.B, boid.Color.A)
 
 	if err != nil {
 		return fmt.Errorf("Couldn't set draw color for boid: %v", err)
