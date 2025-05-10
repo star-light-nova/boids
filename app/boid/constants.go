@@ -1,5 +1,7 @@
 package boid
 
+import "github.com/veandco/go-sdl2/sdl"
+
 const (
 	protectedRange float32 = 5
 	visualRange    float32 = 20
@@ -17,3 +19,5 @@ const (
 	HEIGHT float32 = 5
 	WIDTH  float32 = 5
 )
+
+var DEFAULT_COLOR *sdl.Color = &sdl.Color{R: 255, G: 255, B: 255, A: 126}
