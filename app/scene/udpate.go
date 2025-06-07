@@ -36,6 +36,10 @@ func (scene *Scene) Update() {
 					yPosAvg += otherBoid.Y
 
 					neighbors++
+
+					if otherBoid.Color != boid.DefaultColor() {
+						boid.Color = otherBoid.Color
+					}
 				}
 			}
 		}
@@ -49,6 +53,8 @@ func (scene *Scene) Update() {
 
 			boid.VX = boid.VX + ((xPosAvg-boid.X)*boid.CenterFactor + (xVelAvg-boid.VX)*boid.MatchFactor)
 			boid.VY = boid.VY + ((yPosAvg-boid.Y)*boid.CenterFactor + (yVelAvg-boid.VY)*boid.MatchFactor)
+		} else {
+			boid.Color = boid.DefaultColor()
 		}
 
 		boid.VX = boid.VX + (boid.AvoidFactor * closeDx)

@@ -46,5 +46,3 @@ In the cloned directory:
 ```sh
     go build . && ./boids
 ```
-
-> Boids are afraid of mouse motions.

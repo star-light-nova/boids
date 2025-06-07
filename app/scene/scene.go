@@ -21,7 +21,7 @@ func NewScene(r *sdl.Renderer) (*Scene, error) {
 	mouse_motion_events := make(chan *sdl.MouseMotionEvent)
 	boids := []*boid.Boid{}
 
-	for range 10 {
+	for range 1000 {
 		boid, err := boid.NewBoid(r)
 
 		if err != nil {

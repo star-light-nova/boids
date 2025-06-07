@@ -24,7 +24,7 @@ func (boid *Boid) Paint(r *sdl.Renderer) error {
 	err := r.SetDrawColor(boid.Color.R, boid.Color.G, boid.Color.B, boid.Color.A)
 
 	if err != nil {
-		return fmt.Errorf("Couldn't set a draw colour: %v", err)
+		return fmt.Errorf("Couldn't set draw colour: %v", err)
 	}
 
 	if err := r.CopyF(boid.Texture(), nil, rect); err != nil {

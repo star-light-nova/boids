@@ -5,8 +5,8 @@ import (
 )
 
 const (
-	HEIGHT float32 = 15
-	WIDTH  float32 = 15
+	HEIGHT float32 = 5
+	WIDTH  float32 = 5
 
 	PROTECTEDRANGE float32 = (HEIGHT + WIDTH) * 0.4
 	VISUALRANGE    float32 = HEIGHT + WIDTH

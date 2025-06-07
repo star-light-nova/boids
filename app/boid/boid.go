@@ -49,6 +49,19 @@ func NewBoid(r *sdl.Renderer) (*Boid, error) {
 		randVY = -randVY
 	}
 
+	color := DEFAULT_COLOR
+
+	// Special Boid Colour Probability
+	if rand.Float32() > 0.8 {
+		r := uint8(rand.Uint32())
+		g := uint8(rand.Uint32())
+		b := uint8(rand.Uint32())
+
+		// Putting max brightness to be sure that we will not have almost
+		// invisible boids around.
+		color = &sdl.Color{R: r, G: g, B: b, A: 255}
+	}
+
 	return &Boid{
 		texture: texture,
 
@@ -68,7 +81,7 @@ func NewBoid(r *sdl.Renderer) (*Boid, error) {
 		MatchFactor:      MATCHFACTOR,
 		CenterFactor:     CENTERFACTOR,
 
-		Color: DEFAULT_COLOR,
+		Color: color,
 	}, nil
 }
 
@@ -78,4 +91,8 @@ func (boid *Boid) Texture() *sdl.Texture {
 
 func (boid *Boid) Destroy() {
 	boid.texture.Destroy()
+}
+
+func (boid *Boid) DefaultColor() *sdl.Color {
+	return DEFAULT_COLOR
 }
