@@ -6,10 +6,11 @@ func (scene *Scene) Update() {
 		var closeDy float32 = 0
 		var xVelAvg float32 = 0
 		var yVelAvg float32 = 0
-		var neighbors float32 = 0
 
 		var xPosAvg float32 = 0
 		var yPosAvg float32 = 0
+
+		var neighbors float32 = 0
 
 		for j, otherBoid := range scene.boids {
 			if i == j {
@@ -35,6 +36,10 @@ func (scene *Scene) Update() {
 					yPosAvg += otherBoid.Y
 
 					neighbors++
+
+					if otherBoid.Color != boid.DefaultColor() {
+						boid.Color = otherBoid.Color
+					}
 				}
 			}
 		}
@@ -48,6 +53,8 @@ func (scene *Scene) Update() {
 
 			boid.VX = boid.VX + ((xPosAvg-boid.X)*boid.CenterFactor + (xVelAvg-boid.VX)*boid.MatchFactor)
 			boid.VY = boid.VY + ((yPosAvg-boid.Y)*boid.CenterFactor + (yVelAvg-boid.VY)*boid.MatchFactor)
+		} else {
+			boid.Color = boid.DefaultColor()
 		}
 
 		boid.VX = boid.VX + (boid.AvoidFactor * closeDx)

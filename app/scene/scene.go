@@ -21,8 +21,12 @@ func NewScene(r *sdl.Renderer) (*Scene, error) {
 	mouse_motion_events := make(chan *sdl.MouseMotionEvent)
 	boids := []*boid.Boid{}
 
-	for range 2000 {
-		boid := boid.NewBoid(r)
+	for range 1000 {
+		boid, err := boid.NewBoid(r)
+
+		if err != nil {
+			return nil, err
+		}
 
 		randX := float32(rand.Int31n(ap.DEFAULT_WINDOW_WIDTH - int32(boid.W)))
 		randY := float32(rand.Int31n(ap.DEFAULT_WINDOW_HEIGHT - int32(boid.H)))

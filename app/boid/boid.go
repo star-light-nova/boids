@@ -21,9 +21,12 @@ type Boid struct {
 
 	// Velocity
 	VX, VY float32
+
+	// Color
+	Color *sdl.Color
 }
 
-func NewBoid(r *sdl.Renderer) *Boid {
+func NewBoid(r *sdl.Renderer) (*Boid, error) {
 	texture, err := r.CreateTexture(
 		sdl.PIXELFORMAT_UNKNOWN,
 		sdl.TEXTUREACCESS_STATIC,
@@ -32,12 +35,11 @@ func NewBoid(r *sdl.Renderer) *Boid {
 	)
 
 	if err != nil {
-		// TODO: Return err with Boid.
-		panic("Couldn't create a texture for boid")
+		return nil, err
 	}
 
-	randVX := rand.Float32() + maxspeed
-	randVY := rand.Float32() + minspeed
+	randVX := rand.Float32() + MAXSPEED
+	randVY := rand.Float32() + MINSPEED
 
 	if rand.Float32() > 0.5 {
 		randVX = -randVX
@@ -45,6 +47,19 @@ func NewBoid(r *sdl.Renderer) *Boid {
 
 	if rand.Float32() > 0.5 {
 		randVY = -randVY
+	}
+
+	color := DEFAULT_COLOR
+
+	// Special Boid Colour Probability
+	if rand.Float32() > 0.8 {
+		r := uint8(rand.Uint32())
+		g := uint8(rand.Uint32())
+		b := uint8(rand.Uint32())
+
+		// Putting max brightness to be sure that we will not have almost
+		// invisible boids around.
+		color = &sdl.Color{R: r, G: g, B: b, A: 255}
 	}
 
 	return &Boid{
@@ -57,15 +72,17 @@ func NewBoid(r *sdl.Renderer) *Boid {
 		VY: randVY,
 
 		// Ranges
-		ProtectedRange: protectedRange,
-		VisualRange:    visualRange,
+		ProtectedRange: PROTECTEDRANGE,
+		VisualRange:    VISUALRANGE,
 
 		// Factors
-		AvoidFactor:      AvoidFactor,
-		AvoidMouseFactor: AvoidMouseFactor,
-		MatchFactor:      MatchFactor,
-		CenterFactor:     CenterFactor,
-	}
+		AvoidFactor:      AVOIDFACTOR,
+		AvoidMouseFactor: AVOIDMOUSEFACTOR,
+		MatchFactor:      MATCHFACTOR,
+		CenterFactor:     CENTERFACTOR,
+
+		Color: color,
+	}, nil
 }
 
 func (boid *Boid) Texture() *sdl.Texture {
@@ -74,4 +91,8 @@ func (boid *Boid) Texture() *sdl.Texture {
 
 func (boid *Boid) Destroy() {
 	boid.texture.Destroy()
+}
+
+func (boid *Boid) DefaultColor() *sdl.Color {
+	return DEFAULT_COLOR
 }
