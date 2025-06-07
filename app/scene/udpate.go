@@ -6,10 +6,11 @@ func (scene *Scene) Update() {
 		var closeDy float32 = 0
 		var xVelAvg float32 = 0
 		var yVelAvg float32 = 0
-		var neighbors float32 = 0
 
 		var xPosAvg float32 = 0
 		var yPosAvg float32 = 0
+
+		var neighbors float32 = 0
 
 		for j, otherBoid := range scene.boids {
 			if i == j {

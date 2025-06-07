@@ -26,7 +26,7 @@ type Boid struct {
 	Color *sdl.Color
 }
 
-func NewBoid(r *sdl.Renderer) *Boid {
+func NewBoid(r *sdl.Renderer) (*Boid, error) {
 	texture, err := r.CreateTexture(
 		sdl.PIXELFORMAT_UNKNOWN,
 		sdl.TEXTUREACCESS_STATIC,
@@ -35,12 +35,11 @@ func NewBoid(r *sdl.Renderer) *Boid {
 	)
 
 	if err != nil {
-		// TODO: Return err with Boid.
-		panic("Couldn't create a texture for boid")
+		return nil, err
 	}
 
-	randVX := rand.Float32() + maxspeed
-	randVY := rand.Float32() + minspeed
+	randVX := rand.Float32() + MAXSPEED
+	randVY := rand.Float32() + MINSPEED
 
 	if rand.Float32() > 0.5 {
 		randVX = -randVX
@@ -60,17 +59,17 @@ func NewBoid(r *sdl.Renderer) *Boid {
 		VY: randVY,
 
 		// Ranges
-		ProtectedRange: protectedRange,
-		VisualRange:    visualRange,
+		ProtectedRange: PROTECTEDRANGE,
+		VisualRange:    VISUALRANGE,
 
 		// Factors
-		AvoidFactor:      AvoidFactor,
-		AvoidMouseFactor: AvoidMouseFactor,
-		MatchFactor:      MatchFactor,
-		CenterFactor:     CenterFactor,
+		AvoidFactor:      AVOIDFACTOR,
+		AvoidMouseFactor: AVOIDMOUSEFACTOR,
+		MatchFactor:      MATCHFACTOR,
+		CenterFactor:     CENTERFACTOR,
 
 		Color: DEFAULT_COLOR,
-	}
+	}, nil
 }
 
 func (boid *Boid) Texture() *sdl.Texture {

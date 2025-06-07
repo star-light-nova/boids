@@ -1,23 +1,25 @@
 package boid
 
-import "github.com/veandco/go-sdl2/sdl"
+import (
+	"github.com/veandco/go-sdl2/sdl"
+)
 
 const (
-	protectedRange float32 = 5
-	visualRange    float32 = 20
-	turnFactor     float32 = 0.2
-	maxspeed       float32 = 3
-	minspeed       float32 = 2
+	HEIGHT float32 = 15
+	WIDTH  float32 = 15
 
-	AvoidFactor      float32 = 0.05
-	MatchFactor      float32 = 0.05
-	CenterFactor     float32 = 0.0005
-	AvoidMouseFactor float32 = 0.00025
+	PROTECTEDRANGE float32 = (HEIGHT + WIDTH) * 0.4
+	VISUALRANGE    float32 = HEIGHT + WIDTH
+	TURNFACTOR     float32 = 0.2
+	MAXSPEED       float32 = 3
+	MINSPEED       float32 = 2
 
-	border int32 = 50
+	AVOIDFACTOR      float32 = 0.05
+	MATCHFACTOR      float32 = 0.05
+	CENTERFACTOR     float32 = 0.0005
+	AVOIDMOUSEFACTOR float32 = 0.00025
 
-	HEIGHT float32 = 5
-	WIDTH  float32 = 5
+	BORDER int32 = 50
 )
 
 var DEFAULT_COLOR *sdl.Color = &sdl.Color{R: 255, G: 255, B: 255, A: 126}
